@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+  {% extends 'boiler.html' %}
+	{% block body %} 
+ 
+		<div class="nav">
+      <div id="si">
+			  <form action="{{url_for('getUser')}}" method="post">
+				  <div class="si-i">Username <input type="text" name="username" placeholder="Username"/></idv>
+				  <div class="si-i">Password <input type="text" name="password" placeholder="Password"/></div>
+				  <div class="si-i"><input type="submit" value="Sign In"/></div>
+			  </form>
+      <div>
+		</div>
+
+		<div id="reg">
+      <p id="reg-intro">Sign Up Now and Start Posting!</a>
+			<form action="{{url_for('register')}}" method="post">
+				<div class="reg-i">
+           Username</br>
+				   <input class="reg-ii" type="text" name="username" placeholder="Username"/>
+        </div>
+				<div class="reg-i">
+           Email Address</br>
+				   <input class="reg-ii" type="email" name="email_addr" placeholder="Email Address"/>
+				</div>
+        <div class="reg-i">
+           Password</br>
+	         <input class="reg-ii" type="text" name="password" placeholder="Password"/>
+				</div>
+        <div class="reg-i">
+           <input class="reg-ii" type="submit" value="Sign Up"/>
+			  <div>
+      </form>
+		</div>
+	{% endblock %}
+<html>

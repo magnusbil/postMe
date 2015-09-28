@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+  {% extends 'boiler.html' %}
+
+	<head>
+		<title>{{ user }}</title>
+	</head>
+	
+	{% block body %}
+   	 <div class="nav">
+      	<div id="so"><a href="{{url_for('logout')}}">Sign Out</a></div>
+    	</div>
+	
+		<div class="feed">
+			{% for note in notes %}
+				<div class="note">
+					<a href ="{{url_for('remove', username=user, content=note.content)}}"<i class="fa fa-trash-o fa-2x" id="remove"></i></a>
+					{{ note.content }}
+				</div>
+			{% endfor %}
+		</div>
+	{% endblock %}
+<html>
+

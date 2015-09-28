@@ -1,0 +1,76 @@
+body{
+ height: 100%;
+ width: 100%;
+ overflow: hidden;
+ background-color: rgba(0,0,255, 0.8);
+}
+
+/*nav-bar*/
+.nav{
+ position: fixed;
+ height: 5em;
+ width: 100%;
+ margin: 0;
+ background-color: rgba(0,0,0, 0.8);
+ 
+}
+
+/*sign in wrapper*/
+.si{
+ position: relative;
+ margin: 5% 0 0 10%;
+}
+
+/*sign-in input*/
+.si-i{
+ display: inline-block;
+ margin: 20px;
+}
+/*sign out*/
+#so{
+ position: relative;
+ float right;
+}
+
+/*registration box*/
+#reg{
+ height: 40%;
+ width: 20%;
+ position: absolute;
+ top: 20%;
+ left: 38%; 
+ margin: auto;
+ background-color: #EEE;
+}
+/*statement at top of reg box*/
+#reg-intro{
+  position: relative;
+  text-align: center;
+  margin: 10%; 
+}
+/*reg box div wrapper element for input*/
+.reg-i{
+ position: relative;
+ display: block;
+ margin: 10%;
+}
+/*reg box input*/
+.reg-ii{
+ height: 10%;
+ width: 90%;
+ font-size: 16px;
+ font-family: Verdana;
+ line-height: 18px;
+}
+
+/*add note*/
+#add{
+
+}
+
+/*note removal icon*/
+#remove{
+ position: relative;
+ float: right;
+}
+
