@@ -28,7 +28,7 @@ def index():
       
 @app.route('/profile/<user>', methods=['GET','POST'])
 def profile(user):
-    notes= g.db.execute("SELECT content from notes WHERE user=?", [user])
+    notes= g.db.execute("SELECT content from posts WHERE username=?", [user])
     return render_template('profile.html', notes=notes)
 
 @app.route('/signin', methods=['POST'])
@@ -55,21 +55,28 @@ def register():
     un = request.form['username']
     pw = request.form['password']
     email = request.form['email_addr']
-    g.db.execute("INSERT INTO users VALUES (?,?,?)", [un, pw, email])
+    photo = request.form['picture']
+    g.db.execute("INSERT INTO users VALUES (?,?,?,?)", [un, pw, email, photo])
     g.db.commit()
     return redirect(url_for('profile', user=un))
     
 @app.route('/profile/<username>/add/<content>', methods=['GET', 'POST'])
 def add(username, content):
-    g.db.execute("INSERT INTO note (username,content) Values(?,?)", [username, content])
+    g.db.execute("INSERT INTO posts (username,content) Values(?,?)", [username, content])
     g.db.commit()
     return redirect(url_for('profile', user=username));
     
-@app.route('/profile/remove', methods=['POST'])
-def remove(username, content):
-    g.db.execute("DELETE FROM notes WHERE username=? AND content=?", [username, content])
+@app.route('/profile/note-remove', methods=['POST'])
+def remove_note(username, content):
+    g.db.execute("DELETE FROM posts WHERE username=? AND content=?", [username, content])
     g.db.commit()
     return redirect(url_for('profile', user=username));
-    
+
+@app.route('/profile/<username>/deleteMe')
+def delete_acct(username):
+    g.db.execute("DELETE FROM users WHERE username=?", [username])
+    g.db.commit()
+    return redirect(url_for('login'))
+
 if __name__ == '__main__':
     app.run(host='magnusb.net')
