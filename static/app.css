@@ -2,17 +2,63 @@ body{
  height: 100%;
  width: 100%;
  overflow: hidden;
- background-color: rgba(0,0,255, 0.8);
+  background-color: #DDD;
 }
 
-/*nav-bar*/
-.nav{
- position: fixed;
- height: 5em;
- width: 100%;
- margin: 0;
- background-color: rgba(0,0,0, 0.8);
- 
+#banner{
+ text-align: center;
+ font-family: cursive;
+ color: #DDD;
+}
+
+/*registration box*/
+.input{
+ position: absolute;
+ display: inline-block; 
+ margin: auto;
+ background-color: #EEE;
+}
+
+.input-reg{
+ height: 40%;
+ width: 25%;
+ top: 20%;
+ left: 30%;
+}
+
+.input-si{
+ height: 30%;
+ width: 20%;
+ top: 25%;
+ left: 60%;
+}
+
+/*statement at top of reg box*/
+#intro{
+ position: relative;
+ text-align: center;
+ margin: 10%; 
+}
+
+/*center nav options*/
+.justified {
+  position:absolute;
+  left:45%;
+}
+
+/*reg box input*/
+.reg-ii{
+ height: 10%;
+ width: 90%;
+ font-size: 16px;
+ font-family: cursive;
+ line-height: 18px;
+}
+
+/*note removal icon*/
+#remove{
+ position: relative;
+ float: right;
 }
 
 /*sign in wrapper*/
@@ -32,45 +78,9 @@ body{
  float right;
 }
 
-/*registration box*/
-#reg{
- height: 40%;
- width: 20%;
- position: absolute;
- top: 20%;
- left: 38%; 
- margin: auto;
- background-color: #EEE;
-}
-/*statement at top of reg box*/
-#reg-intro{
-  position: relative;
-  text-align: center;
-  margin: 10%; 
-}
-/*reg box div wrapper element for input*/
-.reg-i{
+/*div wrapper element for input*/
+.wrap-i{
  position: relative;
  display: block;
  margin: 10%;
 }
-/*reg box input*/
-.reg-ii{
- height: 10%;
- width: 90%;
- font-size: 16px;
- font-family: Verdana;
- line-height: 18px;
-}
-
-/*add note*/
-#add{
-
-}
-
-/*note removal icon*/
-#remove{
- position: relative;
- float: right;
-}
-

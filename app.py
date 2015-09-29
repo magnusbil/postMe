@@ -1,13 +1,15 @@
 import sqlite3
 from flask import Flask, g, redirect, request, render_template, session, url_for
+from flask_bootstrap import Bootstrap
 
 DATABASE = 'app.db'
 DEBUG = True
 SECRET_KEY = 'b026Hzy4f9YMT14uS<*46T0opO9x7%'
 
 app = Flask(__name__)
+Bootstrap(app)
 app.config.from_object(__name__)
-
+  
 def connect_db():
     return sqlite3.connect(app.config['DATABASE'])
 
@@ -24,7 +26,7 @@ def tear_req(exception):
 def index():
     return render_template('login.html')
       
-@app.route('/profile/<user>', methods=['GET', 'POST'])
+@app.route('/profile/<user>', methods=['GET','POST'])
 def profile(user):
     notes= g.db.execute("SELECT content from notes WHERE user=?", [user])
     return render_template('profile.html', notes=notes)

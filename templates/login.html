@@ -1,37 +1,59 @@
 <!DOCTYPE html>
 <html>
   {% extends 'boiler.html' %}
-	{% block body %} 
- 
-		<div class="nav">
-      <div id="si">
-			  <form action="{{url_for('getUser')}}" method="post">
-				  <div class="si-i">Username <input type="text" name="username" placeholder="Username"/></idv>
-				  <div class="si-i">Password <input type="text" name="password" placeholder="Password"/></div>
-				  <div class="si-i"><input type="submit" value="Sign In"/></div>
-			  </form>
-      <div>
-		</div>
+	{% block content %}
+  
+    <div class="navbar navbar-fixed-top navbar-inverse">
+      <h3 id="banner">Welcome to PostMe Tell Us Who You Are!</h3>
+    </div> 
 
-		<div id="reg">
-      <p id="reg-intro">Sign Up Now and Start Posting!</a>
-			<form action="{{url_for('register')}}" method="post">
-				<div class="reg-i">
-           Username</br>
-				   <input class="reg-ii" type="text" name="username" placeholder="Username"/>
-        </div>
-				<div class="reg-i">
-           Email Address</br>
-				   <input class="reg-ii" type="email" name="email_addr" placeholder="Email Address"/>
-				</div>
-        <div class="reg-i">
-           Password</br>
-	         <input class="reg-ii" type="text" name="password" placeholder="Password"/>
-				</div>
-        <div class="reg-i">
-           <input class="reg-ii" type="submit" value="Sign Up"/>
-			  <div>
-      </form>
+		<div class="input input-reg">
+      <p id="intro">Sign Up Now and Start Posting!</a>
+      <div class="wrap-i">
+  			<form action="{{url_for('register')}}" method="POST">
+          <div class="form-group">
+            <label for="regUsername">Username</label>
+            <input type="text" class="form-control" id="regUsername" name="username" placeholder="Username">
+          </div>
+          <div class="form-group">
+            <label for="regEmail">Email address</label>
+            <input type="email" class="form-control" id="regEmail" name="email_addr" placeholder="Email">
+          </div>
+          <div class="form-group">
+            <label for="regPass">Password</label>
+            <input type="text" class="form-control" id="regPass" name="password" placeholder="Password">
+          </div>
+          <div class="form-group">
+            <label for="regPicture">Upload Picture</label>
+            <input type="file" id="regPicture" name="picture">
+          </div>
+          <button type="submit" class="btn btn-default" style="float:right;">Submit</button>
+        </form>
+      </div>
 		</div>
+  
+    <div class="input input-si">
+      <p id="intro">Already Have An Account? Sign In.</a>
+      <div class="wrap-i">
+  			<form action="{{url_for('getUser')}}" method="POST">
+          <div class="form-group">
+            <label for="regUsername">Username</label>
+            <input type="text" class="form-control" id="regUsername" name="username" placeholder="Username">
+          </div>
+          <div class="form-group">
+            <label for="regPass">Password</label>
+            <input type="text" class="form-control" id="regPass" name="password" placeholder="Password">
+          </div>
+          <button type="submit" class="btn btn-default" style="float:right;">Submit</button>
+        </form>
+      </div>
+		</div>   
+   <!--<div class="">
+			  <form class="navbar-form nav-center" action="{{url_for('getUser')}}" method="post">
+				  Username <input type="text" class="form-control" name="username" placeholder="Username"/>
+				  Password <input type="text" class="form-control" name="password" placeholder="Password"/>
+				  <input type="submit" value="Sign In"/>
+			  </form>
+		</div>-->
 	{% endblock %}
 <html>
