@@ -1,86 +1,129 @@
 body{
  height: 100%;
  width: 100%;
- overflow: hidden;
-  background-color: #DDD;
+ overflow-x: hidden;
+ overflow-y: scroll;
+ background-color: #DDD;
 }
 
 #banner{
+ max-width: 30%;
+ margin: 10px 0px 0px 45%;
+ display: inline-block;
  text-align: center;
  font-family: cursive;
  color: #DDD;
 }
 
 /*registration box*/
-.input{
- position: absolute;
- display: inline-block; 
+.login-wrap{
+ height: 50%;
+ width: 60%;
+ position: absolute; 
  margin: auto;
  background-color: #EEE;
+ top: 30%;
+ left: 20%;
 }
 
-.input-reg{
- height: 40%;
- width: 25%;
+/*div wrapper element for input*/
+.reg-wrap-i{
+ width: 35%;
+ position: absolute;
+ left: 10%;
  top: 20%;
- left: 30%;
+ margin: auto;
+ display: inline-block;
 }
 
-.input-si{
- height: 30%;
- width: 20%;
- top: 25%;
+/*reg box input*/
+.reg-ii{
+ padding: 5px 0px 5px 0px;
+ font-size: 16px;
+ font-family: cursive;
+ line-height: 18px;
+}
+
+#si-wrap{
+ position: absolute;
  left: 60%;
+ top: 20%;
+ width: 25%;
+ display: inline-block;
 }
 
-/*statement at top of reg box*/
-#intro{
- position: relative;
- text-align: center;
- margin: 10%; 
+.si{
+ color: #000;
 }
 
-/*center nav options*/
+/*center profile nav options*/
 .justified {
   position:absolute;
   left:45%;
 }
 
-/*reg box input*/
-.reg-ii{
- height: 10%;
- width: 90%;
- font-size: 16px;
- font-family: cursive;
- line-height: 18px;
+#post-board{
+ height: 100%;
+ width: 40%;
+ vertical-align: center;
+ position: absolute;
+ margin: auto;
+ left: 30%;
+}
+
+.post-wrap{
+ height: 20%;
+ width: 75%;
+ display: block;
+ border-radius: 4px;
+ position: relative;
+ margin: 5% 0 0 12.5%;
+ background-color: #FFF;
+}
+
+#new-post{
+  position: initial;
+  top: 10%;
+  margin: 10% 0 5% 12.5%;
+}
+
+#opts{
+  height: 10%;
+  width: 100%;
+}
+
+.content-wrap{
+ height: 77%;
+ width: 88%;
+ margin-left: 5%;
+ border-top: 2px #EEE solid;
+ border-bottom: 2px #EEE solid;
+}
+
+.content-wrap textarea{
+  height: 100%;
+  width: 100%;
+  resize: none;
+  border: none;
+}
+
+#content{
+ top: 
+ font-size: 16pt;
+ word-wrap: break-word;
+}
+
+.speak{
+ float: right;
+ margin: 7px 20px 0 0;
+}
+
+.praised{
+  background-color: rgba(200, 0,0, 0.7);
 }
 
 /*note removal icon*/
 #remove{
  position: relative;
  float: right;
-}
-
-/*sign in wrapper*/
-.si{
- position: relative;
- margin: 5% 0 0 10%;
-}
-
-/*sign-in input*/
-.si-i{
- display: inline-block;
- margin: 20px;
-}
-/*sign out*/
-#so{
- position: relative;
- float right;
-}
-
-/*div wrapper element for input*/
-.wrap-i{
- position: relative;
- display: block;
- margin: 10%;
 }

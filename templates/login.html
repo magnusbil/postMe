@@ -4,56 +4,47 @@
 	{% block content %}
   
     <div class="navbar navbar-fixed-top navbar-inverse">
-      <h3 id="banner">Welcome to PostMe Tell Us Who You Are!</h3>
+      <h3 id="banner">Welcome to PostMe</h3>
     </div> 
 
-		<div class="input input-reg">
-      <p id="intro">Sign Up Now and Start Posting!</a>
-      <div class="wrap-i">
-  			<form action="{{url_for('register')}}" method="POST">
+		<div class="login-wrap">
+      <div class="reg-wrap-i">
+        <p>Sign Up Now and Start Posting!</p>
+  			<form action="{{url_for('reg')}}" method="POST">
           <div class="form-group">
             <label for="regUsername">Username</label>
-            <input type="text" class="form-control" id="regUsername" name="username" placeholder="Username">
+            <input type="text" class="form-control reg-ii" id="regUsername" name="username">
           </div>
           <div class="form-group">
             <label for="regEmail">Email address</label>
-            <input type="email" class="form-control" id="regEmail" name="email_addr" placeholder="Email">
+            <input type="email" class="form-control reg-ii" id="regEmail" name="email_addr">
           </div>
           <div class="form-group">
             <label for="regPass">Password</label>
-            <input type="password" class="form-control" id="regPass" name="password" placeholder="Password">
+            <input type="password" class="form-control reg-ii" id="regPass" name="password">
           </div>
-          <div class="form-group">
-            <label for="regPicture">Upload Picture</label>
-            <input type="file" id="regPicture" name="picture">
-          </div>
-          <button type="submit" class="btn btn-default" style="float:right;">Submit</button>
+          <button type="submit" class="btn btn-default">Submit</button>
+        </form>
+      </div>
+      <div id="si-wrap">
+        <p>Already Have an Account? Sign In!</p>
+        <form action="{{url_for('sign_in')}}" method="POST">
+           <div class="form-group">
+              <label for="regUsername" style="color: #FFF;">Username</label>
+              <input type="text" class="form-control si" id="regUsername" name="username">
+           </div>
+           <div class="form-group">
+              <label for="regPass" style="color: #FFF;">Password</label>
+              <input type="password" class="form-control si" id="regPass" name="password">
+           </div>
+           <button type="submit" class="btn btn-default">Submit</button>
         </form>
       </div>
 		</div>
-  
-    <div class="input input-si">
-      <p id="intro">Already Have An Account? Sign In.</a>
-      <div class="wrap-i">
-  			<form action="{{url_for('getUser')}}" method="POST">
-          <div class="form-group">
-            <label for="regUsername">Username</label>
-            <input type="text" class="form-control" id="regUsername" name="username" placeholder="Username">
-          </div>
-          <div class="form-group">
-            <label for="regPass">Password</label>
-            <input type="password" class="form-control" id="regPass" name="password" placeholder="Password">
-          </div>
-          <button type="submit" class="btn btn-default" style="float:right;">Submit</button>
-        </form>
-      </div>
-		</div>   
-   <!--<div class="">
-			  <form class="navbar-form nav-center" action="{{url_for('getUser')}}" method="post">
-				  Username <input type="text" class="form-control" name="username" placeholder="Username"/>
-				  Password <input type="text" class="form-control" name="password" placeholder="Password"/>
-				  <input type="submit" value="Sign In"/>
-			  </form>
-		</div>-->
 	{% endblock %}
+  
+  {% for message in get_flashed_messages() %}
+    <div class=flash>{{ message }}</div>
+  {% endfor %}
+  
 <html>

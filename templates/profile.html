@@ -5,22 +5,38 @@
 	{% block content %}
      {% block navbar %}
       <div class="navbar navbar-fixed-top navbar-inverse">
-        <ul class="nav nav-tabs justified">
-           <li role="presentation" class="active"><a href="">Home</a></li>
-           <li role="presentation"><a href="">Friends</a></li>
-           <li role="presentation"><a href="{{url_for('logout')}}">Sign Out</a></li>
-        </ul>
-      </div>
-    {% endblock %}
-	
-		<div class="feed">
-			{% for note in notes %}
-				<div class="note">
-					<a href ="{{url_for('remove_note', username=user, content=note.content)}}" method="POST"><i class="fa fa-trash-o fa-2x" id="remove"></i></a>
-					{{ note.content }}
-				</div>
-			{% endfor %}
-		</div>
+          <ul class="nav nav-tabs justified">
+             <li class="active"><a href="">Home</a></li>
+             <!--<li><a href="">Friends</a></li>-->
+             <li>
+               <i class="fa fa-gear fa-3x dropdown-toggle" id="dropdownMenu1" style="color: white; cursor: pointer;" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"></i>
+               <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                 <li role="presentation"><a href="{{url_for('logout')}}">Sign Out</a></li>
+               </ul>
+             </li>       
+          </ul>
+        </div>
+     {% endblock %}
+     <div id="post-board">
+       <div class="post-wrap" id="new-post">
+         <form action="{{url_for('post')}}" method="POST">
+           <div class="content-wrap">
+             <textarea type="text" name="newPost" placeholder="Got Something To Say?" value=""></textarea>
+           </div>
+           <div>
+             <div><button type="submit" class="btn btn-default speak">Speak</button></div>
+           </div>
+         </form>
+       </div>
+       {% for post in posts %}
+          <div class="post-wrap">
+            <div id="opts"></div>
+            <div class="content-wrap">
+              <p id="content">{{post.content}}</p>
+            </div>
+          </div>
+       {% endfor %}
+     </div>
 	{% endblock %}
 <html>
 
