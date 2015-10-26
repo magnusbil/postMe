@@ -16,33 +16,40 @@ app.config.from_object(__name__)
 def connect_db():
     return sqlite3.connect(app.config['DATABASE'])
 
-#initialize default session variables
-def setupSession():
+#default session variables
+def setSession():
     session['logged_in']=False
     session['user'] = None
   
-#reset session variables
-def clearUser():
-    session['logged_in'] = False
-    session['user'] = None
+#add a new user
+def addUser(username, password, email):
+    cur = g.db.execute("SELECT username FROM Users WHERE username=? OR email=?", [username, email])
+    userCheck = [dict(un=row[0]) for row in cur.fetchall()]
+    if len(userCheck) > 0:
+        return False;
+    else:
+        g.db.execute("INSERT INTO Users Values(?,?,?,?)", [username, password, email, 0])
+        g.db.commit()
+        user = {"name":username, "posts":0}
+        session['user'] = user
+        return True;
 
-#add a user to the database
-def add_User(un, pw, email):
-    g.db.execute("INSERT INTO Users Values(?,?,?,?)", [un, pw, email, 0])
-    g.db.commit()
-    
 #add a user post to the database
 def add_Post(content):
     g.db.execute("INSERT INTO Posts Values(?,?,?,?,?,?)", [session['user']['posts']+1, session['user']['name'], content, "", 0, 0])
     g.db.commit()
 
 #remove user from the database
-def rem_User():
+def rem_user():
     g.db.execute("DELETE FROM Users WHERE username=?", [session['user']['name']])
+    g.db.execute("DELETE FROM Posts WHERE username=?", [session['user']['name']])
+    g.db.execute("DELETE FROM Listens WHERE speaker=? OR listener=?", [session['user']['name'], session['user']['name']])
+    g.db.execute("DELETE FROM Praises WHERE poster=?", [session['user']['name']])
+    g.db.execute("DELETE FROM Comments WHERE username=?", session['user']['name'])
     g.db.commit()
 
 #remove a post from the database
-def rem_Post(ID):
+def rem_post(ID):
     g.db.execute("DELETE FROM Posts WHERE postID=? and poster=?", [ID, session['user']['name']])
     g.db.commit()
     
@@ -57,12 +64,13 @@ def getUser(username, password):
 
 #get user posts to display on profile
 def getPosts():
-  cur = g.db.execute("SELECT * from posts WHERE poster=?", [session['user']['name']])
-  posts = [dict(ID=row[0], poster=row[1], content=row[2], date=row[3], praises=row[4], comments=row[5]) for row in cur.fetchall()]
-  if len(posts) < 1:
-    return []
-  else:
-    return posts
+    cur = g.db.execute("SELECT * from posts WHERE poster=?", [session['user']['name']])
+    posts = [dict(ID=row[0], poster=row[1], content=row[2], date=row[3], praises=row[4], comments=row[5]) for row in cur.fetchall()]
+    if len(posts) < 1:
+        return []
+    else:
+        return posts
+
     
 #open database for each request
 @app.before_request
@@ -75,14 +83,14 @@ def tear_req(exception):
     if hasattr(g, 'db'):
         g.db.close()
      
-############################################
-# Initial Login and Registration ###########
-############################################
+##################################
+# Initial Login and Registration #
+##################################
     
 #load login/register screen
 @app.route('/')
 def index():
-    setupSession()
+    setSession()
     return redirect(url_for('login'))
      
 @app.route('/login')
@@ -107,13 +115,22 @@ def sign_in():
 #logout of user account
 @app.route('/logout')
 def logout():
-    clearUser()
+    setSession()
     return redirect(url_for('login'));
 
-#register new users
 @app.route('/register', methods=['POST'])
 def reg():
-    return redirect(url_for('login'))
+    un = request.form['regUN']
+    pw = request.form['regPass']
+    email = request.form['email_addr']
+    if addUser(un, pw, email) == True:
+      return redirect(url_for('profile', user=session['user']))
+    else:
+      return redirect(url_for('login'))
+      
+#################################
+#  Profile Display and Options  #
+#################################
     
 @app.route('/profile')
 def profile():
@@ -125,7 +142,19 @@ def post():
     content = request.form['newPost']
     add_Post(content)
     return redirect(url_for('profile'))
-        
+
+@app.route('/profile/delete')
+def remUser():
+    rem_user()
+    setSession()
+    return redirect(url_for('login'))
+
+@app.route('/profile/remPost/<postID>')
+def remPost():
+    rem_post(postID)
+    return redirect(url_for('profile', user=session['user']))
+
+
 #run application
 if __name__ == '__main__':
     app.run(host='magnusb.net')

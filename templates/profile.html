@@ -5,17 +5,19 @@
 	{% block content %}
      {% block navbar %}
       <div class="navbar navbar-fixed-top navbar-inverse">
-          <ul class="nav nav-tabs justified">
-             <li class="active"><a href="">Home</a></li>
-             <!--<li><a href="">Friends</a></li>-->
-             <li>
-               <i class="fa fa-gear fa-3x dropdown-toggle" id="dropdownMenu1" style="color: white; cursor: pointer;" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"></i>
-               <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                 <li role="presentation"><a href="{{url_for('logout')}}">Sign Out</a></li>
-               </ul>
-             </li>       
-          </ul>
-        </div>
+        <ul class="nav nav-tabs justified">
+          <li role="presentation" class="active"><a href="#">Home</a></li>
+          <li role="presentation" class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+              Settings <span class="caret"></span>
+            </a>
+            <ul class="dropdown-menu">
+              <li><a href="{{url_for('logout')}}">Sign Out</a></li>
+              <li><a href="{{url_for('remUser')}}">Delete Account</a></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
      {% endblock %}
      <div id="post-board">
        <div class="post-wrap" id="new-post">
@@ -30,7 +32,17 @@
        </div>
        {% for post in posts %}
           <div class="post-wrap">
-            <div id="opts"></div>
+            <div id="opts">
+              <li role="presentation" class="dropdown" style="list-style:none;">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                  <span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu dropdown-menu-left">
+                    <i class="fa fa-trash"><a href="{{url_for('remPost', postID=post['ID'])}}"></a></i>
+                    <i class="fa fa-smile-o"><a href="#"></a></i>
+                </ul>
+              </li>
+            </div>
             <div class="content-wrap">
               <p id="content">{{post.content}}</p>
             </div>

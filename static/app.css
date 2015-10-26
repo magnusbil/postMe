@@ -89,7 +89,9 @@ body{
 
 #opts{
   height: 10%;
-  width: 100%;
+  width: 10%;
+  position: relative;
+  left: 90%;
 }
 
 .content-wrap{
