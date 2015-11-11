@@ -38,19 +38,20 @@ def addUser(username, password, email):
 def add_Post(content):
     g.db.execute("INSERT INTO Posts Values(?,?,?,?,?,?)", [session['user']['posts']+1, session['user']['name'], content, "", 0, 0])
     g.db.commit()
+    session['user']['posts'] += 1
 
 #remove user from the database
 def rem_user():
-    g.db.execute("DELETE FROM Users WHERE username=?", [session['user']['name']])
-    g.db.execute("DELETE FROM Posts WHERE username=?", [session['user']['name']])
+    g.db.execute("DELETE FROM Users WHERE username=?", ([session['user']['name']]))
+    g.db.execute("DELETE FROM Posts WHERE poster=?", ([session['user']['name']]))
     g.db.execute("DELETE FROM Listens WHERE speaker=? OR listener=?", [session['user']['name'], session['user']['name']])
-    g.db.execute("DELETE FROM Praises WHERE poster=?", [session['user']['name']])
-    g.db.execute("DELETE FROM Comments WHERE username=?", session['user']['name'])
+    g.db.execute("DELETE FROM Praises WHERE poster=?", ([session['user']['name']]))
+    g.db.execute("DELETE FROM Comments WHERE username=?", ([session['user']['name']]))
     g.db.commit()
 
 #remove a post from the database
 def rem_post(ID):
-    g.db.execute("DELETE FROM Posts WHERE postID=? and poster=?", [ID, session['user']['name']])
+    g.db.execute("DELETE FROM Posts WHERE ID=? and poster=?", [ID, session['user']['name']])
     g.db.commit()
     
 #get user information from database
@@ -92,7 +93,8 @@ def tear_req(exception):
 def index():
     setSession()
     return redirect(url_for('login'))
-     
+
+#Check if user is already logged in
 @app.route('/login')
 def login():
     if session['logged_in'] == False:
@@ -115,45 +117,50 @@ def sign_in():
 #logout of user account
 @app.route('/logout')
 def logout():
+    g.db.execute("UPDATE Users SET posts=? WHERE username=?", [session['user']['posts'], session['user']['name']])
     setSession()
     return redirect(url_for('login'));
 
+#Register new user
 @app.route('/register', methods=['POST'])
 def reg():
     un = request.form['regUN']
     pw = request.form['regPass']
     email = request.form['email_addr']
     if addUser(un, pw, email) == True:
-      return redirect(url_for('profile', user=session['user']))
+      return redirect(url_for('profile'))
     else:
       return redirect(url_for('login'))
       
 #################################
 #  Profile Display and Options  #
 #################################
-    
+
+#Load Profile    
 @app.route('/profile')
 def profile():
     posts = getPosts()
     return render_template('profile.html', posts=posts)
         
+#Add post
 @app.route('/profile/add_post', methods=['POST'])
 def post():
     content = request.form['newPost']
     add_Post(content)
     return redirect(url_for('profile'))
 
+#Delete account
 @app.route('/profile/delete')
 def remUser():
     rem_user()
     setSession()
     return redirect(url_for('login'))
 
+#Delete post
 @app.route('/profile/remPost/<postID>')
-def remPost():
+def remPost(postID):
     rem_post(postID)
     return redirect(url_for('profile', user=session['user']))
-
 
 #run application
 if __name__ == '__main__':

@@ -38,8 +38,11 @@
                   <span class="caret"></span>
                 </a>
                 <ul class="dropdown-menu dropdown-menu-left">
-                    <i class="fa fa-trash"><a href="{{url_for('remPost', postID=post['ID'])}}"></a></i>
-                    <i class="fa fa-smile-o"><a href="#"></a></i>
+                    {% if session['user']['name'] == post.poster %}
+                      <a href="{{url_for('remPost', postID=post['ID'])}}"><i class="fa fa-trash"></i></a>
+                    {% else %}
+                      <a href="#"><i class="fa fa-smile-o"></i></a>
+                    {% endif %}
                 </ul>
               </li>
             </div>
