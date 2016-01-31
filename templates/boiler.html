@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html>
+  {% extends "bootstrap/base.html" %}
+  {% block title %}postMe{% endblock %}
+	{% block head %}
+     {{super()}}
+	   <link rel="shortcut icon" href="{{url_for('static', filename='me.jpg')}}">
+		 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+	   <link rel="stylesheet" href="{{url_for('static', filename='app.css')}}">
+	{% endblock %}
+	{% block content %}
+  {% endblock %}
+<html>
