@@ -5,8 +5,6 @@ from flask_bootstrap import Bootstrap
 
 DATABASE = 'app.db'
 DEBUG = True
-SECRET_KEY = 'b026Hzy4f9YMT14uS<*46T0opO9x7%'
-
 
 app = Flask(__name__)
 Bootstrap(app)
